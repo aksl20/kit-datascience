@@ -67,14 +67,17 @@ def get_word_count(filename, n=None):
 
 def print_top(filename, n=20):
     word_count = get_word_count(filename, n=n)
-    print_words(word_count)
+    print_words(word_count, filename=False)
 
 
-def print_words(word_count):
-    keys_sorted = sorted(word_count, key=lambda el: el[0])
+def print_words(obj, filename=True):
+    if filename:
+        obj = get_word_count(obj)
+
+    keys_sorted = sorted(obj, key=lambda el: el[0])
 
     for key in keys_sorted:
-        print('{} {}'.format(key, word_count[key]))
+        print('{} {}'.format(key, obj[key]))
 
 
 # This basic command line argument parsing code is provided and
