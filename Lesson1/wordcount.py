@@ -38,7 +38,7 @@ print_words() and print_top().
 """
 
 import sys
-from collections import Counter
+from collections import Counter, OrderedDict
 
 
 # +++your code here+++
@@ -67,17 +67,18 @@ def get_word_count(filename, n=None):
 
 def print_top(filename, n=20):
     word_count = get_word_count(filename, n=n)
-    print_words(word_count, filename=False)
+    word_count_sorted = OrderedDict(sorted(word_count.items(), key=lambda el: el[1], reverse=True))
+
+    for word, count in word_count_sorted.items():
+        print('{} {}'.format(word, count))
 
 
-def print_words(obj, filename=True):
-    if filename:
-        obj = get_word_count(obj)
+def print_words(filename):
+    word_count = get_word_count(filename)
+    word_count_sorted = OrderedDict(sorted(word_count.items(), key=lambda el: el[0]))
 
-    keys_sorted = sorted(obj, key=lambda el: el[0])
-
-    for key in keys_sorted:
-        print('{} {}'.format(key, obj[key]))
+    for word, count in word_count_sorted.items():
+        print('{} {}'.format(word, count))
 
 
 # This basic command line argument parsing code is provided and
